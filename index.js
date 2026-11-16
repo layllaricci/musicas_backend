@@ -27,6 +27,21 @@ app.get("/", (request, response) => {
     })
 })
 
+app.post("/cadastrar", (request, response) => {
+    const { titulo, artista, genero, ano, duracao } = request.body
+    const comandoInsert = "INSERT INTO musicas_layllaricci(titulo, artista, genero, ano, duracao) VALUES (?, ?, ?, ?, ?)"
+
+    sql.query(comandoInsert, [titulo, artista, genero, ano, duracao], (error) => {
+        if(error) {
+            console.log(error)
+            return
+        }
+
+        response.status(201).json({ mensagem: "Música cadastrada com sucesso!" })
+    })
+})
+
+
 //localhost:3000
 app.listen(3000, () => {
     console.log("Servidor online! http://localhost:3000")
