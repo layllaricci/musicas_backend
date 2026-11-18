@@ -41,6 +41,20 @@ app.post("/cadastrar", (request, response) => {
     })
 })
 
+app.delete("/apagar/:id", (request, response) => {
+    const { id } = request.params
+
+    const comandoDelete = "DELETE FROM musicas_seunome WHERE id = ?"
+
+    sql.query(comandoDelete, [id], (error) => {
+        if (error) {
+            console.log(error)
+            return
+        }
+
+        response.json({ mensagem: "Música apagada com sucesso!" })
+    })
+})
 
 //localhost:3000
 app.listen(3000, () => {
