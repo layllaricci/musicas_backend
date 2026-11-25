@@ -43,8 +43,10 @@ app.post("/cadastrar", (request, response) => {
 
 app.delete("/apagar/:id", (request, response) => {
     const { id } = request.params
+    
+    console.log(id)
 
-    const comandoDelete = "DELETE FROM musicas_seunome WHERE id = ?"
+    const comandoDelete = "DELETE FROM musicas_layllaricci WHERE id = ?"
 
     sql.query(comandoDelete, [id], (error) => {
         if (error) {
@@ -56,15 +58,10 @@ app.delete("/apagar/:id", (request, response) => {
     })
 })
 
-//localhost:3000
-app.listen(3000, () => {
-    console.log("Servidor online! http://localhost:3000")
-})
-
 app.get("/musica/:id", (request, response) => {
     const { id } = request.params
 
-    const comandoSelect = "SELECT * FROM musicas_seunome WHERE id = ?"
+    const comandoSelect = "SELECT * FROM musicas_layllaricci WHERE id = ?"
 
     sql.query(comandoSelect, [id], (error, data) => {
         if (error) {
@@ -80,7 +77,7 @@ app.put("/editar/:id", (request, response) => {
     const { id } = request.params
     const { titulo, artista, genero, ano, duracao } = request.body
 
-    const comandoUpdate = "UPDATE musicas_seunome SET titulo = ?, artista = ?, genero = ?, ano = ?, duracao = ? WHERE id = ?"
+    const comandoUpdate = "UPDATE musicas_layllaricci SET titulo = ?, artista = ?, genero = ?, ano = ?, duracao = ? WHERE id = ?"
 
     sql.query(comandoUpdate, [titulo, artista, genero, ano, duracao, id], (error) => {
         if (error) {
@@ -90,6 +87,11 @@ app.put("/editar/:id", (request, response) => {
 
         response.json({ mensagem: "Música alterada com sucesso!" })
     })
+})
+
+//localhost:3000
+app.listen(3000, () => {
+    console.log("Servidor online! http://localhost:3000")
 })
 
 export default app
